@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empower Illiterate</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+         .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+      
+        .dropdown-submenu {
+            position: relative;
+        }
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-left: 0.1rem;
+            margin-right: 0.1rem;
+        }
+        
+    
+  
+    
+    </style>
+</head>
+<body style="background-color: rgb(140, 154, 235);">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand">Empower Illiterate</a>
+            {% if user %}
+            <form method="get" action="{% url 'search_users' %}" class="d-flex">
+                <input class="form-control me-2" type="search" name="q" placeholder="Search jobs and workers" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            {% endif %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                    {% if user %}
+             
+                    <li class="nav-item"><a class="nav-link " href="/hiree">Worker</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/job">Job</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ user }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <!-- Worker Dropdown -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Worker</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/add_worker">Add Worker</a></li>
+                                    <li><a class="dropdown-item" href="/verify_worker">Update Worker</a></li>
+                                    <li><a class="dropdown-item" href="/verify_worker">Delete Worker</a></li>
+                                </ul>
+                            </li>
+                            <!-- Job Dropdown -->
+                            <li class="dropdown-submenu">
+                                <a class="dropdown-item dropdown-toggle" href="#">Job</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="/add_job">Add Job</a></li>
+                                    <li><a class="dropdown-item" href="/verify_job">Update Job</a></li>
+                                    <li><a class="dropdown-item" href="/verify_job">Delete Job</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="dropdown-item" href="/update_profile">Update Profile</a></li>
+                            <li><a class="dropdown-item" href="/userlogout">Logout</a></li>
+                        </ul>
+                    </div>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/signup">Signup</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section text-dark text-center d-flex align-items-center" style="height: 70vh;">
+        <div class="container">
+            <h1>Welcome to Empower Illiterate</h1>
+            <p>Connecting Talents, Breaking Barriers</p>
+            {%if user is none%}
+            <a href="/login" class="btn btn-primary me-2">Find Work</a>
+            <a href="/login" class="btn btn-primary">Hire Talent</a>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Why Choose Us?</h2>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Easy Registration</h5>
+                            <p class="card-text">Quick and simple process for hirees and hirers to join.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Smart Search</h5>
+                            <p class="card-text">Find jobs or skilled workers based on skills, location, and more.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">Direct Contact</h5>
+                            <p class="card-text">Connect directly with no intermediaries, ensuring fast responses.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3">
+        <p>&copy; 2024 Empower Illiterate. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Ensure submenus open on hover
+        document.querySelectorAll('.dropdown-submenu').forEach(function (submenu) {
+            submenu.addEventListener('mouseenter', function () {
+                let dropdownMenu = this.querySelector('.dropdown-menu');
+                dropdownMenu.style.display = 'block';
+            });
+            submenu.addEventListener('mouseleave', function () {
+                let dropdownMenu = this.querySelector('.dropdown-menu');
+                dropdownMenu.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
